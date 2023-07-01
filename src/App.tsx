@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './assets/images/logo.svg';
+import './assets/css/App.css';
 import { GET_ANIME_LIST } from './utils/queryGraphApolloClient';
 import { useQuery } from '@apollo/client';
 
