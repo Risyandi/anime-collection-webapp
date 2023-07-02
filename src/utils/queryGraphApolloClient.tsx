@@ -2,11 +2,11 @@
  * list of query of graphql
  */
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const GET_ANIME_LIST = gql`
-query Data($id: Int, $page: Int, $perPage: Int, $search: String) {
-    Page (page: $page, perPage: $perPage) {
+  query Data($id: Int, $page: Int, $perPage: Int, $search: String) {
+    Page(page: $page, perPage: $perPage) {
       pageInfo {
         total
         currentPage
@@ -14,7 +14,7 @@ query Data($id: Int, $page: Int, $perPage: Int, $search: String) {
         hasNextPage
         perPage
       }
-      media (id: $id, search: $search) {
+      media(id: $id, search: $search) {
         id
         title {
           english
@@ -22,24 +22,22 @@ query Data($id: Int, $page: Int, $perPage: Int, $search: String) {
         }
         description
         startDate {
-            year
-            month
-            day
+          year
+          month
+          day
         }
         endDate {
-            year
-            month
-            day
+          year
+          month
+          day
         }
         coverImage {
           large
-          }
+        }
         bannerImage
       }
     }
   }
 `;
 
-export {
-    GET_ANIME_LIST
-};
+export { GET_ANIME_LIST };
