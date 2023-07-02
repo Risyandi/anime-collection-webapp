@@ -3,6 +3,7 @@ import { lazy } from "react";
 const HomePage = lazy(() => import("./pages/Home"));
 const CollectionPage = lazy(() => import("./pages/Collection"));
 const ErrorPage = lazy(() => import("./components/ErrorPage"));
+const NotFoundPage = lazy(() => import("./components/NotFoundPage"));
 
 const routes = [
   {
@@ -11,8 +12,13 @@ const routes = [
     errorElement: <ErrorPage />,
   },
   {
-    path: "*",
+    path: "/",
     element: <HomePage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
     errorElement: <ErrorPage />,
   },
 ];
