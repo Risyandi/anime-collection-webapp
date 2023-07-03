@@ -10,9 +10,11 @@ const cardStyles = css`
   display: flex;
   flex-direction: row;
   border-radius: 8px;
-  padding: 16px;
-  margin: 16px;
-  border: 1px solid #ccc;
+  margin: auto;
+  margin-top: 50px;
+  width: 70vw;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   @media (max-width: 600px) {
     flex-direction: column;
   }
@@ -28,8 +30,19 @@ const leftColumnStyles = css`
 
 const rightColumnStyles = css`
   flex: 4;
+  padding: 20px;
   display: flex;
   flex-direction: column;
+`;
+
+const imgStyles = css`
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  object-position: left;
+  transition: all 0.5s ease;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 `;
 
 interface TCard {
@@ -45,10 +58,14 @@ const CardDetail = ({ data }: TCard) => {
         data.map((card: any, index: any) => (
           <div css={cardStyles} key={index}>
             <div css={leftColumnStyles}>
-              <h2>{card.title.romaji}</h2>
-              <img src={card.coverImage.large} alt={card.title.romaji} />
+              <img
+                css={imgStyles}
+                src={card.coverImage.large}
+                alt={card.title.romaji}
+              />
             </div>
             <div css={rightColumnStyles}>
+              <h2>{card.title.romaji}</h2>
               <p>{card.description}</p>
             </div>
           </div>
