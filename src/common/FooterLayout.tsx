@@ -1,9 +1,13 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 const FooterContainer = styled.footer`
-  background-color: #f2f2f2;
+  background-color: #f8f8fc;
   padding: 20px;
   text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 `;
 
 const FooterText = styled.p`
@@ -15,7 +19,9 @@ const FooterText = styled.p`
 const Footer = () => {
   return (
     <FooterContainer>
-      <FooterText>© 2023 Anime Collections - Risyandi. All rights reserved.</FooterText>
+      <FooterText>
+        © 2023 Anime Collections - Risyandi. All rights reserved.
+      </FooterText>
     </FooterContainer>
   );
 };

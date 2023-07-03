@@ -8,55 +8,108 @@ const CardContainer = styled.div`
   justify-content: center;
 `;
 
+const Div = styled.div`
+  text-align: center;
+`;
+
 const Card = styled.div`
   width: 300px;
-  padding: 16px;
+  height: fit-content;
   margin: 16px;
-  border: 1px solid #ccc;
   border-radius: 8px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 `;
 
 const CardTitle = styled.h2`
   font-size: 18px;
-  margin-bottom: 8px;
+  margin: 0 8px 8px;
 `;
 
 const CardImage = styled.img`
   width: 100%;
-  height: auto;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  transition: all 0.5s ease;
   margin-bottom: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 `;
 
 const CardDescription = styled.p`
-  margin-bottom: 8px;
+  margin: 0 8px 8px;
 `;
 
-const Button = styled.button`
-  background-color: #007bff;
-  color: #fff;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
+const Button = styled.div`
+  background-color: #ea4c89;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
   cursor: pointer;
-  margin-left: 2px;
-  margin-right: 2px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  // margin: 0 8px 8px;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    background-color: #f082ac;
+  }
 `;
 
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 100px;
 `;
 
 const PaginationButton = styled.button<{ disabled: boolean }>`
-  padding: 8px 16px;
-  margin: 0 4px;
-  background-color: ${(props) => (props.disabled ? "#ccc" : "#007bff")};
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  background-color: ${(props) => (props.disabled ? "#ccc" : "#ea4c89")};
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  margin: 0 4px;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  &:hover,
+  &:focus {
+    background-color: #f082ac;
+  }
 `;
 
 interface TCard {
@@ -86,12 +139,16 @@ const CardList = ({ data }: TCard) => {
       <CardContainer>
         {currentCards.map((card: any, index: any) => (
           <Card key={index}>
-            <CardTitle>{card.title.romaji}</CardTitle>
-            <CardImage src={card.coverImage.large} alt={card.title} />
-            <CardDescription>{card.description}</CardDescription>
             <Link to={`/detail/${card.id}`}>
-              <Button>View Details</Button>
+              <CardImage src={card.coverImage.large} alt={card.title} />
+              <CardTitle>{card.title.romaji}</CardTitle>
             </Link>
+            <CardDescription>{card.description}</CardDescription>
+            <Div>
+              <Link to={`/detail/${card.id}`}>
+                <Button>View Details</Button>
+              </Link>
+            </Div>
           </Card>
         ))}
       </CardContainer>
