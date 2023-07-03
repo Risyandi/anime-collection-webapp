@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const CardContainer = styled.div`
   display: flex;
@@ -65,10 +66,6 @@ interface TCard {
 }
 
 const CardList = ({ data }: TCard) => {
-
-  console.log(data, 'data');
-  
-
   const cardsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -82,17 +79,19 @@ const CardList = ({ data }: TCard) => {
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards:any = data.slice(indexOfFirstCard, indexOfLastCard);
+  const currentCards: any = data.slice(indexOfFirstCard, indexOfLastCard);
 
   return (
     <>
       <CardContainer>
-        {currentCards.map((card:any, index:any) => (
+        {currentCards.map((card: any, index: any) => (
           <Card key={index}>
             <CardTitle>{card.title.romaji}</CardTitle>
             <CardImage src={card.coverImage.large} alt={card.title} />
             <CardDescription>{card.description}</CardDescription>
-            <Button>View Details</Button>
+            <Link to={`/detail/${card.id}`}>
+              <Button>View Details</Button>
+            </Link>
           </Card>
         ))}
       </CardContainer>
