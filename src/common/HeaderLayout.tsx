@@ -30,7 +30,7 @@ const HeaderMenu = () => {
       <HeaderContainer>
         <Menu>
           <MenuItem active>
-            <Link to="/">Homepage</Link>
+            <Link to="/anime-collection-webapp">Homepage</Link>
           </MenuItem>
           <MenuItem active={false}>
             <Link to="/collections">Collections</Link>
