@@ -12,7 +12,9 @@ import {
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_ANIME_API,
   headers: {
-    "Access-Control-Allow-Origin": "*",
+    "access-control-allow-origin": "*",
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Methods': '*',
   },
 });
 
