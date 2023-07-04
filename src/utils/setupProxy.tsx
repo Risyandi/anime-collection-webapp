@@ -13,9 +13,9 @@ interface appParams {
 
 export default function SetupProxy(app:appParams) {
   app.use(
-    '/api',
+    '/anime-collection-webapp/api',
     createProxyMiddleware({
-      target: process.env.REACT_APP_ANIME_API,
+      target: process.env.REACT_APP_ANIME_API, // target url from env
       changeOrigin: true,
     })
   );
