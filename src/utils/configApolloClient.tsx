@@ -10,7 +10,7 @@ import {
 } from "@apollo/client";
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_ANIME_API,
+  uri: '/anime-collection-webapp/api',
   headers: {
     "access-control-allow-origin": "*",
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
