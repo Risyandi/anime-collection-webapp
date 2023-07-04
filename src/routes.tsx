@@ -13,7 +13,7 @@ const routes = [
     errorElement: <ErrorPage />,
   },
   {
-    path: "/",
+    path: "/anime-collection-webapp",
     element: <HomePage />,
     errorElement: <ErrorPage />,
   },

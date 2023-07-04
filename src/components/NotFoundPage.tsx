@@ -7,7 +7,7 @@ export default function ErrorPage() {
       <p>Sorry, Page not found. </p>
       <p> 
         Back to 
-        <Link to='/'> Homepage</Link>
+        <Link to='/anime-collection-webapp'> Homepage</Link>
       </p>
     </div>
   );
