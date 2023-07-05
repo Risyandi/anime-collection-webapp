@@ -1,6 +1,10 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import { GET_ANIME_LIST } from "../utils/queryGraphApolloClient";
+import { convertHtmlToText, truncateText } from "../utils/generalUtils";
+import { useQuery } from "@apollo/client";
 
 const CardContainer = styled.div`
   display: flex;
@@ -9,12 +13,15 @@ const CardContainer = styled.div`
 `;
 
 const Div = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   text-align: center;
 `;
 
 const Card = styled.div`
+  position: relative;
   width: 300px;
-  height: fit-content;
   margin: 16px;
   border-radius: 8px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
@@ -24,11 +31,15 @@ const Card = styled.div`
 const CardTitle = styled.h2`
   font-size: 18px;
   margin: 0 8px 8px;
+  &:hover,
+  &:focus {
+    color: #ea4c89;
+  }
 `;
 
 const CardImage = styled.img`
   width: 100%;
-  height: 300px;
+  height: 200px;
   object-fit: cover;
   object-position: center;
   transition: all 0.5s ease;
@@ -39,6 +50,7 @@ const CardImage = styled.img`
 
 const CardDescription = styled.p`
   margin: 0 8px 8px;
+  height: 150px;
 `;
 
 const Button = styled.div`
@@ -55,7 +67,6 @@ const Button = styled.div`
   height: 40px;
   line-height: 20px;
   list-style: none;
-  // margin: 0 8px 8px;
   outline: none;
   padding: 10px 16px;
   position: relative;
@@ -67,7 +78,6 @@ const Button = styled.div`
   -webkit-user-select: none;
   touch-action: manipulation;
   width: 100%;
-
   &:hover,
   &:focus {
     background-color: #f082ac;
@@ -112,38 +122,57 @@ const PaginationButton = styled.button<{ disabled: boolean }>`
   }
 `;
 
-interface TCard {
-  data: {
-    [key: string]: any;
-  };
-}
+const CardList = () => {
+  const [dataCards, setDataCards] = useState<{ [key: string]: any }>([]);
+  const [nextPage, setNextPage] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-const CardList = ({ data }: TCard) => {
-  const cardsPerPage = 6;
-  const [currentPage, setCurrentPage] = useState(1);
+  const { data, refetch } = useQuery(GET_ANIME_LIST, {
+    variables: {
+      search: "detective conan",
+      page: 1,
+      perPage: 10,
+    },
+  });
+
+  useEffect(() => {
+    if (data !== undefined) {
+      setDataCards(data.Page.media);
+      let { hasNextPage } = data.Page.pageInfo;
+      if (hasNextPage) {
+        setNextPage(false);
+      }
+    }
+  }, [data]);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
+    handleLoadNextPage(currentPage + 1);
   };
 
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
+    handleLoadNextPage(currentPage - 1);
   };
 
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards: any = data.slice(indexOfFirstCard, indexOfLastCard);
+  const handleLoadNextPage = (pageNumber: number) => {
+    refetch({
+      page: pageNumber,
+    });
+  };
 
   return (
     <>
       <CardContainer>
-        {currentCards.map((card: any, index: any) => (
+        {dataCards.map((card: any, index: any) => (
           <Card key={index}>
             <Link to={`/detail/${card.id}`}>
               <CardImage src={card.coverImage.large} alt={card.title} />
               <CardTitle>{card.title.romaji}</CardTitle>
             </Link>
-            <CardDescription>{card.description}</CardDescription>
+            <CardDescription>
+              {truncateText(convertHtmlToText(card.description), 250)}
+            </CardDescription>
             <Div>
               <Link to={`/detail/${card.id}`}>
                 <Button>View Details</Button>
@@ -159,10 +188,7 @@ const CardList = ({ data }: TCard) => {
         >
           Previous
         </PaginationButton>
-        <PaginationButton
-          disabled={indexOfLastCard >= data.length}
-          onClick={handleNextPage}
-        >
+        <PaginationButton disabled={nextPage} onClick={handleNextPage}>
           Next
         </PaginationButton>
       </PaginationContainer>
