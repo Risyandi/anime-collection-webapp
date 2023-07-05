@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { GET_ANIME_LIST } from "../utils/queryGraphApolloClient";
 import { convertHtmlToText, truncateText } from "../utils/generalUtils";
+import { createCollection } from "../utils/localForage";
 import { useQuery } from "@apollo/client";
 
 const CardContainer = styled.div`
@@ -163,6 +164,14 @@ const CardList = () => {
     });
   };
 
+  const addCollection = (data: any) => {
+    createCollection(data).then((res) => {
+      if (res) {
+        alert("Data exist in your collections");
+      }
+    });
+  };
+
   return (
     <>
       <TitleDiv>
@@ -179,9 +188,9 @@ const CardList = () => {
               {truncateText(convertHtmlToText(card.description), 250)}
             </CardDescription>
             <Div>
-              <Link to={`/detail/${card.id}`}>
-                <Button>View Details</Button>
-              </Link>
+              <Button onClick={() => addCollection(card)}>
+                Add Collection
+              </Button>
             </Div>
           </Card>
         ))}
