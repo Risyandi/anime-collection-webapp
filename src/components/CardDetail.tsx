@@ -51,10 +51,6 @@ const articleBannerStyles = css`
 
   ${mq[0]} {
   }
-
-  &:hover {
-    transform: scale(1.1);
-  }
 `;
 
 const articleContentStyles = css`
@@ -70,7 +66,7 @@ const articleContentStyles = css`
 
 const articleTitleStyles = css`
   font-size: 20px;
-  color: black;
+  color: #ea4c89;
   margin-bottom: 12px;
   line-height: 1.4;
 
@@ -92,10 +88,24 @@ const articleTextStyles = css`
 
 const wrapperCardStyles = css`
   margin: auto;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  margin-bottom: 80px;
   display: grid;
   place-items: center;
+`;
+
+const wrapperDetail = css`
+  display: block;
+`;
+
+const detailTitle = css`
+  color: #ea4c89;
+  font-size: 12px;
+  font-weight: bold;
+`;
+
+const detailText = css`
+  font-size: 12px;
 `;
 
 type DetailHomePageParams = {
@@ -134,6 +144,25 @@ const CardDetail = () => {
           <div css={articleContentStyles}>
             <h3 css={articleTitleStyles}>{card.title.romaji}</h3>
             <p css={articleTextStyles}>{convertHtmlToText(card.description)}</p>
+            <div css={wrapperDetail}>
+              <div css={detailTitle}>Genres</div>
+              <div css={detailText}>{card.genres.join(", ").toLowerCase()}</div>
+            </div>
+            <br />
+            <div css={wrapperDetail}>
+              <div css={detailTitle}>Score</div>
+              <div css={detailText}>{card.averageScore}</div>
+            </div>
+            <br />
+            <div css={wrapperDetail}>
+              <div css={detailTitle}>Duration</div>
+              <div css={detailText}>{card.duration} minutes</div>
+            </div>
+            <br />
+            <div css={wrapperDetail}>
+              <div css={detailTitle}>Type</div>
+              <div css={detailText}>{card.type.toLowerCase()}</div>
+            </div>
           </div>
         </article>
       ))}

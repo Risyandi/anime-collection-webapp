@@ -36,10 +36,7 @@ const Card = styled.div`
 const CardTitle = styled.h2`
   font-size: 18px;
   margin: 0 8px 8px;
-  &:hover,
-  &:focus {
-    color: #ea4c89;
-  }
+  color: #ea4c89;
 `;
 
 const CardImage = styled.img`
