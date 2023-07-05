@@ -4,7 +4,7 @@
   "private": true,
   "author": "Risyandi",
   "homepage": "https://risyandi.github.io/anime-collection-webapp",
-  "proxy": "https://risyandi.com",
+  "proxy": "https://graphql.anilist.co",
   "dependencies": {
     "@apollo/client": "^3.7.16",
     "@emotion/react": "^11.11.1",

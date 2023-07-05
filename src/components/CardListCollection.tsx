@@ -1,11 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import { GET_ANIME_LIST } from "../utils/queryGraphApolloClient";
 import { convertHtmlToText, truncateText } from "../utils/generalUtils";
-import { createCollection } from "../utils/localForage";
-import { useQuery } from "@apollo/client";
+import { getCollections, deleteCollections } from "../utils/localForage";
 
 const CardContainer = styled.div`
   display: flex;
@@ -125,91 +122,95 @@ const PaginationButton = styled.button<{ disabled: boolean }>`
   }
 `;
 
-const CardList = () => {
+const CardListCollection = () => {
   const [dataCards, setDataCards] = useState<{ [key: string]: any }>([]);
-  const [nextPage, setNextPage] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const { data, refetch } = useQuery(GET_ANIME_LIST, {
-    variables: {
-      search: "detective conan",
-      page: 1,
-      perPage: 10,
-    },
-  });
+  const cardsPerPage = 10;
 
   useEffect(() => {
-    if (data !== undefined) {
-      setDataCards(data.Page.media);
-      let { hasNextPage } = data.Page.pageInfo;
-      if (hasNextPage) {
-        setNextPage(false);
+    // get data collection from storage
+    getCollectionsData().then((data) => {
+      if (data !== null) {
+        setDataCards(data);
       }
-    }
-  }, [data]);
+    });
+  }, []);
+
+  const getCollectionsData = async () => {
+    let collections: any = await getCollections();
+    return collections;
+  };
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
-    handleLoadNextPage(currentPage + 1);
   };
 
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
-    handleLoadNextPage(currentPage - 1);
   };
 
-  const handleLoadNextPage = (pageNumber: number) => {
-    refetch({
-      page: pageNumber,
+  const fetchUpdateData = () => {
+    getCollectionsData().then((data) => {
+      setDataCards(data);
     });
   };
 
-  const addCollection = (data: any) => {
-    createCollection(data).then((res) => {
-      if (res) {
-        alert("Data exist in your collections");
-      } else {
-        alert("Data has been added in your collections");
-      }
-    });
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCards: any =
+    dataCards.length !== 0
+      ? dataCards.slice(indexOfFirstCard, indexOfLastCard)
+      : [];
+
+  const removeCollection = (dataId: any) => {
+    deleteCollections(dataId);
+    fetchUpdateData();
   };
 
   return (
     <>
       <TitleDiv>
-        <h1>Detective Conan</h1>
+        <h1>Your Collections</h1>
       </TitleDiv>
-      <CardContainer>
-        {dataCards.map((card: any, index: any) => (
-          <Card key={index}>
-            <Link to={`/detail/${card.id}`}>
-              <CardImage src={card.coverImage.large} alt={card.title} />
-              <CardTitle>{card.title.romaji}</CardTitle>
-            </Link>
-            <CardDescription>
-              {truncateText(convertHtmlToText(card.description), 250)}
-            </CardDescription>
-            <Div>
-              <Button onClick={() => addCollection(card)}>
-                Add Collection
-              </Button>
-            </Div>
-          </Card>
-        ))}
-      </CardContainer>
-      <PaginationContainer>
-        <PaginationButton
-          disabled={currentPage === 1}
-          onClick={handlePreviousPage}
-        >
-          Previous
-        </PaginationButton>
-        <PaginationButton disabled={nextPage} onClick={handleNextPage}>
-          Next
-        </PaginationButton>
-      </PaginationContainer>
+
+      {dataCards.length !== 0 ? (
+        <>
+          <CardContainer>
+            {currentCards.map((card: any, index: any) => (
+              <Card key={index}>
+                <Link to={`/detail/${card.id}`}>
+                  <CardImage src={card.coverImage.large} alt={card.title} />
+                  <CardTitle>{card.title.romaji}</CardTitle>
+                </Link>
+                <CardDescription>
+                  {truncateText(convertHtmlToText(card.description), 250)}
+                </CardDescription>
+                <Div>
+                  <Button onClick={() => removeCollection(card.id)}>
+                    Remove Collection
+                  </Button>
+                </Div>
+              </Card>
+            ))}
+          </CardContainer>
+          <PaginationContainer>
+            <PaginationButton
+              disabled={currentPage === 1}
+              onClick={handlePreviousPage}
+            >
+              Previous
+            </PaginationButton>
+            <PaginationButton
+              disabled={indexOfLastCard >= dataCards.length}
+              onClick={handleNextPage}
+            >
+              Next
+            </PaginationButton>
+          </PaginationContainer>
+        </>
+      ) : null}
     </>
   );
 };
 
-export default CardList;
+export default CardListCollection;
