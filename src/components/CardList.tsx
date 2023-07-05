@@ -19,6 +19,11 @@ const Div = styled.div`
   text-align: center;
 `;
 
+const TitleDiv = styled.div`
+  margin: 10px 22px;
+  color: #ea4c89;
+`;
+
 const Card = styled.div`
   position: relative;
   width: 300px;
@@ -163,6 +168,9 @@ const CardList = () => {
 
   return (
     <>
+      <TitleDiv>
+        <h1>Detective Conan</h1>
+      </TitleDiv>
       <CardContainer>
         {dataCards.map((card: any, index: any) => (
           <Card key={index}>
