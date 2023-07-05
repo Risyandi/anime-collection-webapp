@@ -17,5 +17,9 @@ A single-page application (SPA) is a web application or website that interacts w
 - npm run start (running in development mode)
 - npm run build (build your app)
 
+**Demo Webapp:**
+
+![alt](./docs/anime_collections.gif)
+
 
 email: <risyandi.94@gmail.com> / <hello@risyandi.com>
