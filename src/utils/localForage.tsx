@@ -35,12 +35,13 @@ export async function createCollection(dataCards: any) {
     if (collectionDuplicate === null) {
       collections.push(collection);
       await set(collections);
+      return false;
     } else {
-      return "duplicate"
+      return true;
     }
-
   } else {
     await set([collection]);
+    return false;
   }
 }
 

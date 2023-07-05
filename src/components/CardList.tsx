@@ -168,6 +168,8 @@ const CardList = () => {
     createCollection(data).then((res) => {
       if (res) {
         alert("Data exist in your collections");
+      } else {
+        alert("Data has been added in your collections");
       }
     });
   };
