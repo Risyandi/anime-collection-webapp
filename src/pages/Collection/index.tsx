@@ -1,11 +1,13 @@
 import MainLayout from '../../common/MainLayout';
 import FooterLayout from '../../common/FooterLayout';
+import CardListCollection from '../../components/CardListCollection';
+
 
 const CollectionPage = () => {
   return (
     <div>
       <MainLayout/>
-      <p>Collection Page</p>
+      <CardListCollection/>
       <FooterLayout/>
     </div>
   );
