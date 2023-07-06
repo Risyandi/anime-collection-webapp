@@ -46,7 +46,7 @@ const articleBannerStyles = css`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: left;
+  object-position: center;
   transition: all 0.5s ease;
 
   ${mq[0]} {
@@ -77,7 +77,7 @@ const articleTitleStyles = css`
 
 const articleTextStyles = css`
   color: black;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   margin-bottom: 18px;
 
@@ -100,12 +100,12 @@ const wrapperDetail = css`
 
 const detailTitle = css`
   color: #ea4c89;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
 `;
 
 const detailText = css`
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 type DetailHomePageParams = {

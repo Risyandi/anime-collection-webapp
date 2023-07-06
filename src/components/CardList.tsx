@@ -53,7 +53,8 @@ const CardImage = styled.img`
 
 const CardDescription = styled.p`
   margin: 0 8px 8px;
-  height: 150px;
+  padding-bottom: 40px;
+  font-size: 14px;
 `;
 
 const Button = styled.div`
