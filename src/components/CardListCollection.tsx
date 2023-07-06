@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { convertHtmlToText, truncateText } from "../utils/generalUtils";
 import { getCollections, deleteCollections } from "../utils/localForage";
+import LoadingScreen from "../components/LoadingScreen";
 
 const CardContainer = styled.div`
   display: flex;
@@ -170,12 +171,11 @@ const CardListCollection = () => {
 
   return (
     <>
-      <TitleDiv>
-        <h1>Your Collections</h1>
-      </TitleDiv>
-
       {dataCards.length !== 0 ? (
         <>
+          <TitleDiv>
+            <h1>Your Collections</h1>
+          </TitleDiv>
           <CardContainer>
             {currentCards.map((card: any, index: any) => (
               <Card key={index}>
@@ -209,7 +209,9 @@ const CardListCollection = () => {
             </PaginationButton>
           </PaginationContainer>
         </>
-      ) : null}
+      ) : (
+        <LoadingScreen text={"Not have data Collection you added."} />
+      )}
     </>
   );
 };

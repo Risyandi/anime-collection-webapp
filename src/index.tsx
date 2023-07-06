@@ -1,4 +1,4 @@
-import {StrictMode, Suspense} from "react";
+import { StrictMode, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./utils/reportWebVitals";
@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./utils/configApolloClient";
 import "./assets/css/index.css";
-import LoadingScreen from './components/LoadingScreen'
+import LoadingScreen from "./components/LoadingScreen";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <BrowserRouter>
-      <Suspense fallback={<LoadingScreen/>}>
+      <Suspense fallback={<LoadingScreen text={"Loading..."} />}>
         <ApolloProvider client={client}>
           <App />
         </ApolloProvider>
