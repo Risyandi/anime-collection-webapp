@@ -27,6 +27,11 @@ const routes = [
     element: <DetailHomePage />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/detail/collections/:id",
+    element: <DetailHomePage />,
+    errorElement: <ErrorPage />,
+  },
 ];
 
 export default routes;

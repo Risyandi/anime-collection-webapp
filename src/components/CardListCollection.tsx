@@ -179,7 +179,7 @@ const CardListCollection = () => {
           <CardContainer>
             {currentCards.map((card: any, index: any) => (
               <Card key={index}>
-                <Link to={`/detail/${card.id}`}>
+                <Link to={`/detail/collections/${card.id}`}>
                   <CardImage src={card.coverImage.large} alt={card.title} />
                   <CardTitle>{card.title.romaji}</CardTitle>
                 </Link>
