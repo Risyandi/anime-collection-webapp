@@ -16,6 +16,13 @@ const GET_ANIME_LIST = gql`
       }
       media(id: $id, search: $search) {
         id
+        type
+        hashtag
+        averageScore
+        popularity
+        meanScore
+        duration
+        genres
         title {
           english
           romaji

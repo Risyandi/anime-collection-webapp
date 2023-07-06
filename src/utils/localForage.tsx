@@ -19,8 +19,16 @@ export async function getCollectionDuplicate(id: number) {
   await fakeNetwork(`collection:${id}`);
 
   let collections: any = await getCollections();
-  let contact = collections.find((collection: any) => collection.id === id);
-  return contact ?? null;
+  let collection = collections.find((collection: any) => collection.id === id);
+  return collection ?? null;
+}
+
+export async function getCollectionById(id: any) {
+  await fakeNetwork(`collection:${id}`);
+
+  let collections: any = await getCollections();
+  let collection = collections.filter((collection: any) => collection.id === Number(id));
+  return collection;
 }
 
 export async function createCollection(dataCards: any) {

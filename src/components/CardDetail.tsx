@@ -6,11 +6,13 @@
 
 import { useEffect, useState } from "react";
 import { css } from "@emotion/react";
-import { useParams } from "react-router-dom";
+import { useParams, useMatch } from "react-router-dom";
 import { GET_ANIME_LIST_BY_ID } from "../utils/queryGraphApolloClient";
 import { convertHtmlToText } from "../utils/generalUtils";
 import { useQuery } from "@apollo/client";
+import { getCollectionById } from "../utils/localForage";
 
+// breakpoint css emotion
 const breakpoints = [768];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
@@ -46,7 +48,7 @@ const articleBannerStyles = css`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: left;
+  object-position: center;
   transition: all 0.5s ease;
 
   ${mq[0]} {
@@ -77,7 +79,7 @@ const articleTitleStyles = css`
 
 const articleTextStyles = css`
   color: black;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   margin-bottom: 18px;
 
@@ -100,20 +102,22 @@ const wrapperDetail = css`
 
 const detailTitle = css`
   color: #ea4c89;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
 `;
 
 const detailText = css`
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 type DetailHomePageParams = {
-  id: string;
+  id: any;
 };
 
 const CardDetail = () => {
   const { id } = useParams<DetailHomePageParams>();
+  const matches = useMatch("/detail/collections/:id");
+
   const [dataCardsDetail, setDataCardsDetail] = useState<{
     [key: string]: any;
   }>([]);
@@ -125,10 +129,18 @@ const CardDetail = () => {
   });
 
   useEffect(() => {
-    if (data !== undefined) {
-      setDataCardsDetail([data.Media]);
+    if (matches !== null) {
+      // set data for detail collections from localstorage
+      getCollectionById(id).then((data) => {
+        setDataCardsDetail(data);
+      });
+    } else {
+      if (data !== undefined) {
+        // set data for detail homepage from graphql
+        setDataCardsDetail([data.Media]);
+      }
     }
-  }, [data]);
+  }, [data, id, matches]);
 
   return (
     <div css={wrapperCardStyles}>
@@ -137,31 +149,31 @@ const CardDetail = () => {
           <div css={imageBoxStyles}>
             <img
               src={card.coverImage.large}
-              alt={card.title.romaji}
+              alt={card.title ? card.title.romaji : '-'}
               css={articleBannerStyles}
             />
           </div>
           <div css={articleContentStyles}>
-            <h3 css={articleTitleStyles}>{card.title.romaji}</h3>
-            <p css={articleTextStyles}>{convertHtmlToText(card.description)}</p>
+            <h3 css={articleTitleStyles}>{card.title ? card.title.romaji : '-'}</h3>
+            <p css={articleTextStyles}>{card.description ? convertHtmlToText(card.description): '-'}</p>
             <div css={wrapperDetail}>
               <div css={detailTitle}>Genres</div>
-              <div css={detailText}>{card.genres.join(", ").toLowerCase()}</div>
+              <div css={detailText}>{card.genres ? card.genres.join(", ").toLowerCase(): '-'}</div>
             </div>
             <br />
             <div css={wrapperDetail}>
               <div css={detailTitle}>Score</div>
-              <div css={detailText}>{card.averageScore}</div>
+              <div css={detailText}>{card.averageScore ? card.averageScore : '-'}</div>
             </div>
             <br />
             <div css={wrapperDetail}>
               <div css={detailTitle}>Duration</div>
-              <div css={detailText}>{card.duration} minutes</div>
+              <div css={detailText}>{card.duration ? card.duration+' minutes' : '-'} </div>
             </div>
             <br />
             <div css={wrapperDetail}>
               <div css={detailTitle}>Type</div>
-              <div css={detailText}>{card.type.toLowerCase()}</div>
+              <div css={detailText}>{card.type ? card.type.toLowerCase() : '-'}</div>
             </div>
           </div>
         </article>
