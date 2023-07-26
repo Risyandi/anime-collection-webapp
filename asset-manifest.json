@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/anime-collection-webapp/static/css/main.901a6b88.css",
-    "main.js": "/anime-collection-webapp/static/js/main.5d7d6ea5.js",
-    "static/js/42.e82f60c4.chunk.js": "/anime-collection-webapp/static/js/42.e82f60c4.chunk.js",
-    "static/js/578.5a66b938.chunk.js": "/anime-collection-webapp/static/js/578.5a66b938.chunk.js",
+    "main.js": "/anime-collection-webapp/static/js/main.730f7007.js",
+    "static/js/42.29e1081a.chunk.js": "/anime-collection-webapp/static/js/42.29e1081a.chunk.js",
+    "static/js/578.7c062760.chunk.js": "/anime-collection-webapp/static/js/578.7c062760.chunk.js",
     "static/js/635.b22e44ec.chunk.js": "/anime-collection-webapp/static/js/635.b22e44ec.chunk.js",
     "static/js/901.58013438.chunk.js": "/anime-collection-webapp/static/js/901.58013438.chunk.js",
     "static/js/15.ffcbebca.chunk.js": "/anime-collection-webapp/static/js/15.ffcbebca.chunk.js",
@@ -12,9 +12,9 @@
     "static/js/33.c3decb6c.chunk.js": "/anime-collection-webapp/static/js/33.c3decb6c.chunk.js",
     "index.html": "/anime-collection-webapp/index.html",
     "main.901a6b88.css.map": "/anime-collection-webapp/static/css/main.901a6b88.css.map",
-    "main.5d7d6ea5.js.map": "/anime-collection-webapp/static/js/main.5d7d6ea5.js.map",
-    "42.e82f60c4.chunk.js.map": "/anime-collection-webapp/static/js/42.e82f60c4.chunk.js.map",
-    "578.5a66b938.chunk.js.map": "/anime-collection-webapp/static/js/578.5a66b938.chunk.js.map",
+    "main.730f7007.js.map": "/anime-collection-webapp/static/js/main.730f7007.js.map",
+    "42.29e1081a.chunk.js.map": "/anime-collection-webapp/static/js/42.29e1081a.chunk.js.map",
+    "578.7c062760.chunk.js.map": "/anime-collection-webapp/static/js/578.7c062760.chunk.js.map",
     "635.b22e44ec.chunk.js.map": "/anime-collection-webapp/static/js/635.b22e44ec.chunk.js.map",
     "901.58013438.chunk.js.map": "/anime-collection-webapp/static/js/901.58013438.chunk.js.map",
     "15.ffcbebca.chunk.js.map": "/anime-collection-webapp/static/js/15.ffcbebca.chunk.js.map",
@@ -24,6 +24,6 @@
   },
   "entrypoints": [
     "static/css/main.901a6b88.css",
-    "static/js/main.5d7d6ea5.js"
+    "static/js/main.730f7007.js"
   ]
 }
