@@ -47,6 +47,49 @@ const GET_ANIME_LIST = gql`
   }
 `;
 
+const GET_ANIME_LIST_BY_TYPE = gql`
+  query Data($page: Int, $perPage: Int) {
+    Page(page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        currentPage
+        lastPage
+        hasNextPage
+        perPage
+      }
+      media(type: ANIME, isAdult: false, sort:TRENDING_DESC) {
+        id
+        type
+        hashtag
+        averageScore
+        popularity
+        meanScore
+        duration
+        genres
+        title {
+          english
+          romaji
+        }
+        description
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+        coverImage {
+          large
+        }
+        bannerImage
+      }
+    }
+  }
+`;
+
 const GET_ANIME_LIST_BY_ID = gql`
   query ($id: Int) {
     Media(id: $id) {
@@ -81,4 +124,4 @@ const GET_ANIME_LIST_BY_ID = gql`
   }
 `;
 
-export { GET_ANIME_LIST, GET_ANIME_LIST_BY_ID };
+export { GET_ANIME_LIST, GET_ANIME_LIST_BY_TYPE, GET_ANIME_LIST_BY_ID };

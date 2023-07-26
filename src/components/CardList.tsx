@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import { GET_ANIME_LIST } from "../utils/queryGraphApolloClient";
+import { GET_ANIME_LIST_BY_TYPE } from "../utils/queryGraphApolloClient";
 import { convertHtmlToText, truncateText } from "../utils/generalUtils";
 import { createCollection } from "../utils/localForage";
 import { useQuery } from "@apollo/client";
@@ -131,9 +131,8 @@ const CardList = () => {
   const [nextPage, setNextPage] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const { data, refetch } = useQuery(GET_ANIME_LIST, {
+  const { data, refetch } = useQuery(GET_ANIME_LIST_BY_TYPE, {
     variables: {
-      search: "detective conan",
       page: 1,
       perPage: 10,
     },
@@ -178,7 +177,7 @@ const CardList = () => {
   return (
     <>
       <TitleDiv>
-        <h1>Detective Conan</h1>
+        <h1>Anime</h1>
       </TitleDiv>
       <CardContainer>
         {dataCards.map((card: any, index: any) => (
